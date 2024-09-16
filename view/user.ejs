@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user</title>
+    <style>
+        #task{
+            width: 200px;
+            height: 200px;
+            text-align: center;
+            border: 5px black solid;
+            padding: 15px;  
+            margin-left: 20px; 
+        }
+        #task h3{
+            font-size: 25px;
+            margin-bottom: 5px;
+            text-transform: capitalize;
+        }
+        #task h4{
+            font-size: 20px;
+            margin-bottom: 5px;
+            text-transform: capitalize;
+        }
+        #task h2{
+            font-size: 20px;
+            margin-bottom: 15px;
+            text-transform: capitalize;
+        }
+        #task button{
+            padding: 8px;
+            margin-right: 8px;
+            text-transform: capitalize;
+        }
+        form{
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <%- include("nav") %>
+    <form action="/task/taskupdate" method="post">
+        <h1>update data</h1>
+        <input type="text" name="title" id="title" placeholder="title"><br><br>
+        <input type="text" name="content" id="content" placeholder="content"><br><br>
+        <input type="text" name="category" id="category" placeholder="category"><br><br>
+        <input type="text" name="_id" id="id" placeholder="id"><br><br>
+        <input type="submit" value="update"><br><br>
+    </form>
+
+    <form action="" method="post">
+        <h1>search category</h1>
+        <input type="search" id="searchInput" name="category" placeholder="category">  
+        <input type="submit" name="" id="" value="search">  
+    </form><br><br>
+
+    <div id="task"></div>
+</body>
+<script>
+    fetch("/task/tasks")
+    .then((res) => res.json())
+    .then((data) =>{
+        data.map((ele) =>{
+            let title = document.createElement("h3")
+            title.innerHTML = `Title : ${ele.title}`
+            let content = document.createElement("h4")
+            content.innerHTML = `content : ${ele.content}`
+            let category = document.createElement("h2")
+            category.innerHTML = `category : ${ele.category}`
+           
+            // delete task 
+            let del = document.createElement("button")
+            del.innerHTML = "Delete"
+            del.addEventListener("click" , ()=>{
+                fetch(`/task/deletetask/${ele._id}`,{
+                    method : "DELETE"
+                })
+            })
+
+            // update task 
+            let update = document.createElement("button")
+            update.innerHTML = "Update"
+            update.addEventListener("click",()=>{
+                document.getElementById("title").value = ele.title
+                document.getElementById("content").value = ele.content
+                document.getElementById("category").value = ele.category
+                document.getElementById("id").value = ele._id
+
+            })
+            let div = document.createElement("div")
+            div.append(title , content , category , del , update)
+            document.getElementById("task").append(div)
+        })
+    })
+
+
+    const searchButton = document.getElementById("searchButton");
+
+      // Event listener for search button
+      searchButton.addEventListener("click", () => {
+        const searchQuery = document.getElementById("searchInput").value;
+        fetchTasks(searchQuery);
+      });
+
+    //   category
+      const fetchtasks = (category) => {
+        const url = category
+          ?` /task/searchTasks?category=${category}` : "/product/searchTasks";  
+        fetch(url)
+          .then((res) => res.json())
+          .then((data) => {
+            display(data);  
+          })
+          .catch((error) => console.log(error));
+      };
+
+      // Function to display tasks
+      const display = (data) => {
+        document.getElementById("task").innerHTML = "";  
+
+        if (data.length === 0) {
+          document.getElementById("task").innerHTML = "<h3>No tasks found for the given category</h3>";
+          return;
+        }
+      }
+
+      fetchtasks();
+</script>
+</html>

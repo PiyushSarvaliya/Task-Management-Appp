@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <style>
+        form{
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <%- include("nav") %>
+    <form action="/user/login" method="post" id="form"><br><br>
+        <input type="email" name="email" id="email" placeholder="email"><br><br>
+        <input type="text" name="password" id="password" placeholder="password"><br><br>
+        <input type="submit">
+    </form>
+</body>
+</html>

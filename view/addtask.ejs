@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form{
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <%- include("nav") %> <br><br>
+    <form action="/task/createtask" method="post" id="taskform">
+        <input type="text" name="title" id="title" placeholder="enter your title"><br><br>
+        <input type="text" name="content" id="content" placeholder="enter your des"><br><br>
+        <input type="text" name="category" id="category" placeholder="enter your category"><br><br>
+        <input type="submit">
+    </form>
+</body>
+</html>
