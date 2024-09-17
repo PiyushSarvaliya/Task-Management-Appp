@@ -12,6 +12,9 @@ app.set("views" , __dirname + "/view")
 app.use(cookie())
 app.use("/user" , userrouter)
 app.use("/task" , taskroute)
+app.use("/",(req , res) => {
+    res.redirect("/user/signup")
+})
 app.listen(process.env.PORT,()=>{
     connect()
     console.log(`port is start ${process.env.PORT}`)
