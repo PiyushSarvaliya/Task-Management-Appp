@@ -10,7 +10,7 @@ uses many npm llike a express , mongodb , jsonwebtoken , cookie-parse , .env , e
 user see only your work cretead task.
 admin can also change many thing.
 admin accesses user task authorization.
-user can create task create a update and create date status.
+user can create task create on a update and create date status.
 user can click on task and redirect full task deatil in one page.
 In full page task create comment on task .
 In this feature available which user create a comment.
