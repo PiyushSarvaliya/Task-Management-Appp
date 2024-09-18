@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            margin: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        #box div {
+            width: max-content;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include("nav") %>
+        <div id="box"></div>
+</body>
+<script>
+    fetch("/task/alltask")
+        .then((res) => res.json())
+        .then((data) => {
+            display(data)
+        })
+
+    const display = (data) => {
+        document.getElementById("box").innerHTML = ""
+        data.map((ele) => {
+            let title = document.createElement("h1")
+            title.innerHTML = `Title: ${ele.title}`
+            let content = document.createElement("h4")
+            content.innerHTML = `content: ${ele.content}`
+            let category = document.createElement("p")
+
+            let div = document.createElement("div")
+            div.append(title, content)
+            document.getElementById("box").append(div)
+
+
+            div.addEventListener("click", () => {
+                window.location.href = `/task/singleTask/${ele._id}`
+            })
+        })
+    }
+</script>
+
+</html>

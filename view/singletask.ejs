@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      #blog{
+        width: max-content;
+        border: 2px solid black;
+        padding: 20px;
+        text-align: center;
+        margin-left: 500px;
+        margin-top: 50px;
+      }
+      .row p{
+        font-size: 50px;
+        margin-left: 50px;
+      }
+      .card-body p {
+        width: max-content;
+        font-size: 50px;
+        margin-top: 20px;
+        padding: 10px 30px;
+        border: 2px solid black;
+      }
+    </style>
+</head>
+
+<body>
+    <%- include("nav") %>
+        <div id="blog">
+            <h3 id="title">Title :- <%= singleTask.title %>
+            </h3>
+            <p id="content">Content :- <%= singleTask.content %>
+            </p>
+            <p id="category">category :- <%= singleTask.category %>
+            </p>
+            <p><span>Due Date:</span> <%= new Date(singleTask.duedate).toLocaleDateString() %></p>
+            </p><br><br>
+            <form action="/task/<%= singleTask._id %>/comment" method="post">
+                <label for="comment" class="form-label">comments</label><br>
+                <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control"
+                    required></textarea><br><br>
+                    <input type="submit" name="" id="">
+            </form>
+        </div>
+        <div class="comments-section">
+          <h4>All Comments</h4>
+          <% if(singleTask.reviews.length === 0) { %>
+              <p>No comments yet. Be the first to comment!</p>
+          <% } else { %>
+              <% singleTask.reviews.forEach(review => { %>
+              <div class="comment">
+                <h5 class="card-title">@<%= review.author ? review.author.username : "Anonymous" %></h5>
+                  <p><%= review.comment %></p>
+              </div>
+              <% }); %>
+          <% } %>
+      </div>
+</body>
+
+</html>

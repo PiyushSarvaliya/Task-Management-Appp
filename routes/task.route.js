@@ -1,5 +1,5 @@
 const {Router} = require("express")
-const { taskui, createtask, tasks1, taskdelete, taskupdate, searchTasks, alltask } = require("../controller/task.controller")
+const { taskui, createtask, tasks1, taskdelete, taskupdate, searchTasks, alltask, homeui, singletask, reviews } = require("../controller/task.controller")
 const { Auth, authorize } = require("../middleware/auth")
 const taskroute = Router()
 
@@ -11,5 +11,8 @@ taskroute.delete("/deletetask/:id" , taskdelete)
 taskroute.post("/taskupdate" , taskupdate)
 taskroute.get("/searchTasks" , searchTasks)
 taskroute.get("/alltask",authorize,Auth,alltask)
+taskroute.post("/:id/comment" , Auth ,  reviews)            
+taskroute.get("/home"  ,homeui)
+taskroute.get("/singleTask/:id"  ,singletask)
 
 module.exports = taskroute

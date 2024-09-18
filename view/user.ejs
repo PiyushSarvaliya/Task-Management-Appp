@@ -68,6 +68,8 @@
             content.innerHTML = `content : ${ele.content}`
             let category = document.createElement("h2")
             category.innerHTML = `category : ${ele.category}`
+            let p = document.createElement("p")
+            p.innerHTML = `Duedate : ${ele.duedate}`
            
             // delete task 
             let del = document.createElement("button")
@@ -89,7 +91,7 @@
 
             })
             let div = document.createElement("div")
-            div.append(title , content , category , del , update)
+            div.append(title , content , category , del , update , p)
             document.getElementById("task").append(div)
         })
     })
