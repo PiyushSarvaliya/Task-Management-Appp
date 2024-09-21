@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 
+
 const Auth = (req, res, next) => {
     let { token } = req.cookies
       
@@ -24,4 +25,4 @@ const authorize = (req, res, next) => {
   };
   
 
-module.exports = {Auth,authorize};
+module.exports = {Auth,authorize };

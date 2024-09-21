@@ -1,5 +1,5 @@
 const {Router} = require("express")
-const { taskui, createtask, tasks1, taskdelete, taskupdate, searchTasks, alltask, homeui, singletask, reviews } = require("../controller/task.controller")
+const { taskui, createtask, tasks1, taskdelete, taskupdate, searchTasks, alltask, homeui, singletask, reviews, getTasksWithPagination, getTasks, exportTasksToCSV, upload, importTasksFromCSV } = require("../controller/task.controller")
 const { Auth, authorize } = require("../middleware/auth")
 const taskroute = Router()
 
@@ -14,5 +14,10 @@ taskroute.get("/alltask",authorize,Auth,alltask)
 taskroute.post("/:id/comment" , Auth ,  reviews)            
 taskroute.get("/home"  ,homeui)
 taskroute.get("/singleTask/:id"  ,singletask)
+taskroute.get("/pagination" , getTasksWithPagination)
+taskroute.get("/filter" , getTasks)
 
+
+taskroute.get("/exporttask" , exportTasksToCSV)
+taskroute.post("/importtask" ,upload.single("csvfile") , importTasksFromCSV )
 module.exports = taskroute

@@ -2,7 +2,7 @@ const express = require("express")
 const connect = require("./config/db")
 const userrouter = require("./routes/user.route")
 const app = express()
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ limit: '10mb', extended: true }))
 const cookie = require("cookie-parser")
 const taskroute = require("./routes/task.route")
 
@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 });
 
 require("dotenv").config()
-app.use(express.json())
+app.use(express.json({ limit: '10mb' }))
 app.set("view engine", "ejs")
 app.set("views", __dirname + "/view")
 app.use(cookie())
